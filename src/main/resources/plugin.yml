@@ -1,0 +1,5 @@
+name: Nuedifficulty
+version: '${project.version}'
+main: me.alexrenard.nuedifficulty.Nuedifficulty
+api-version: 1.18
+authors: [ AlexRenard ]
