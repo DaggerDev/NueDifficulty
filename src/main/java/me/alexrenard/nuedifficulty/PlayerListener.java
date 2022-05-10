@@ -2,6 +2,7 @@ package me.alexrenard.nuedifficulty;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,11 +29,10 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onMobSpawn(CreatureSpawnEvent event)
     {
-
-        if(event.getEntity().getType() == EntityType.CREEPER)
+        LivingEntity entity = event.getEntity();
+        if(entity instanceof Creeper)
         {
-            Creeper creeper = (Creeper)event.getEntity();
-            creeper.setExplosionRadius(0);
+            ((Creeper) entity).setExplosionRadius(1);
         }
     }
 
@@ -45,7 +45,7 @@ public class PlayerListener implements Listener {
         }
         else
         {
-            event.setDamage(event.getDamage()/1.5f);
+            event.setDamage(event.getDamage()/1.2f);
         }
     }
 }
