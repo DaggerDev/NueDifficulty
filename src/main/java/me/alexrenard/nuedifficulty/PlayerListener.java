@@ -41,7 +41,7 @@ public class PlayerListener implements Listener {
     {
         if(event.getDamager() instanceof Player)
         {
-            event.setDamage(event.getDamage()*2);
+            event.setDamage(event.getDamage()*1.5);
         }
         else
         {
