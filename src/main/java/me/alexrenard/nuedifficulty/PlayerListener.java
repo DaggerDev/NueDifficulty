@@ -1,17 +1,18 @@
 package me.alexrenard.nuedifficulty;
-import org.bukkit.Bukkit;
+
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Creeper;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class PlayerListener implements Listener {
     @EventHandler
@@ -23,6 +24,7 @@ public class PlayerListener implements Listener {
     {
         event.setKeepInventory(true);
         event.setKeepLevel(true);
+        event.getDrops().clear();
     }
 
 
@@ -34,6 +36,19 @@ public class PlayerListener implements Listener {
         {
             ((Creeper) entity).setExplosionRadius(1);
         }
+    }
+
+    @EventHandler
+    public void onMobDeath(EntityDeathEvent event)
+    {
+        LivingEntity entity = event.getEntity();
+        if(entity instanceof Creeper == false)
+        {
+            return;
+        }
+        Location location = entity.getLocation();
+        ItemStack stack = new ItemStack(Material.GUNPOWDER, 1);
+        location.getWorld().dropItemNaturally(location, stack);
     }
 
     @EventHandler
